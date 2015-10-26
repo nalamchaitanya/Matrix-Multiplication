@@ -21,6 +21,7 @@ int main()
 	long* id1,id2;
 	pthread_join(t1,(void **)&id1);
 	pthread_join(t2,(void **)&id2);
+	printf("%ld %ld thread id created.\n",*id1,*id2);
 	printf("Exiting main\n");
 	return(0);
 }

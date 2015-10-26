@@ -21,10 +21,10 @@ typedef struct _Args
 
 int** matread(char *file);
 
-void matprint(int** mat,int r,int c);
+void matprint(int** mat,int r,int c,char *file);
 
 int** mattra(int** mat,int r,int c);
 
-void matpro(Args *args);
+void* matpro(void *args);
 
 #endif

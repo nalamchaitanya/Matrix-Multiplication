@@ -36,14 +36,15 @@ int** matread(char *file)
 	return mat;
 }
 
-void matprint(int** mat,int r,int c)
+void matprint(int** mat,int r,int c,char *file)
 {
 	int i,j;
+	FILE *fp = fopen(file,"w");
 	for(i=0;i<r;i++)
 	{
 		for(j=0;j<c;j++)
-			printf("%d ",mat[i][j]);
-		printf("\n");
+			fprintf(fp,"%d ",mat[i][j]);
+		fprintf(fp,"\n");
 	}
 }
 
@@ -59,8 +60,11 @@ int** mattra(int** mat,int r,int c)
 	return mat1;
 }
 
-void matpro(Args *args)
+void* matpro(void *arg)
 {
+	Args *args=(Args*)arg;
+	// print(args);
+	printf("Hi\n");
 	int i,j,k;
 	for(i=args->rs;i<args->re;i++)
 		for(j=args->cs;j<args->ce;j++)
@@ -68,9 +72,10 @@ void matpro(Args *args)
 			{
 				C[i][j]+=A[i][k]*B[k][j];
 			}
+	return 0;
 }
 
-void print()
+void print(Args *args)
 {
-	printf("%d %d %d %d\n",r1,c1,r2,c2 );
+	printf("%d %d %d %d\n",args->rs,args->re,args->cs,args->ce);
 }

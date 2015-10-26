@@ -14,12 +14,12 @@ void *thread_fn(void *arg)
 int main()
 {
 	pthread_t t1,t2;
-
+	printf("%d %d\n",t1,t2 );
 	pthread_create(&t1,NULL,thread_fn,(void *)1);
 	pthread_create(&t2,NULL,thread_fn,(void *)2);
 	printf("%d %d thread id created.\n",t1,t2 );
 	pthread_join(t1,NULL);
 	pthread_join(t2,NULL);
-	printf("Exiting main\n");
+	printf("Exiting main\a\n");
 	return(0);
 }

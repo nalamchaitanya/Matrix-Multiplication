@@ -8,7 +8,7 @@ LDFLAGS = -lpthread
 all:matmul
 
 matmul:matmul.o matlib.o
-	$(CC) $(LDFLAGS) $^ -o $@
+	$(CC) $^ $(LDFLAGS) -o $@
 
 matmul.o: matmul.c matlib.h
 	$(CC) $(CFLAGS) $< -o $@
