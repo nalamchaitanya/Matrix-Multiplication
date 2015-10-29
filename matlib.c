@@ -40,7 +40,10 @@ int** matread(char *file)
 void matprint(int** mat,int r,int c,char *file)
 {
 	int i,j;
-	FILE *fp = fopen(file,"w");
+	FILE *fp;
+	fp = fopen(file,"w");
+	if(file==NULL)
+		fp = stdout;
 	for(i=0;i<r;i++)
 	{
 		for(j=0;j<c;j++)

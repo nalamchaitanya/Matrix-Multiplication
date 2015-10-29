@@ -5,7 +5,7 @@ SH = bash
 CFLAGS = -g -c
 LDFLAGS = -lpthread
 
-all:matmul
+all:matmul graph
 
 matmul:matmul.o matlib.o
 	$(CC) $^ $(LDFLAGS) -o $@
@@ -16,6 +16,10 @@ matmul.o: matmul.c matlib.h
 matlib.o: matlib.c matlib.h
 	$(CC) $(CFLAGS) $< -o $@
 
+graph:time.c
+	$(CC) $< -o $@
+
 clean:
 	rm matmul
 	rm *.o
+	rm graph

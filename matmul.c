@@ -14,12 +14,12 @@ int main(int argc,char **argv)
 {
 	if(argc!=3)
 	{
-		printf("Usage : No of threads , output file.\n");
+		printf("Usage : No of threads , output file\n");
 		return 0;
 	}
 	A = matread("mat1.dat");
 	B = matread("mat2.dat");
-	B = mattra(B,r2,c2);
+	// B = mattra(B,r2,c2);
 
 	if(c1!=r2)
 	{
@@ -35,8 +35,8 @@ int main(int argc,char **argv)
 		memset(C[i],0,sizeof(int)*c2);
 	}
 
-	// matprint(A,r1,c1);
-	// matprint(B,r2,c2);
+	// matprint(A,r1,c1,NULL);
+	// matprint(B,r2,c2,NULL);
 
 
 	// printf("%d %d %d %d\n",r1,c1,r2,c2);
@@ -77,9 +77,10 @@ int main(int argc,char **argv)
 	for(i=0;i<thrcnt;i++)
 		pthread_join(tid[i],(void**)&ret);
 	clock_gettime(CLOCK_MONOTONIC,&en);
-
-	runtime = (en.tv_nsec-st.tv_nsec)/1000;
-	printf("time for %d threads : %f\n",thrcnt,runtime);
+	str=st.tv_sec*1000000000 + st.tv_nsec;
+	end=en.tv_sec*1000000000 + en.tv_nsec;
+	runtime = (end-str)/1000000.0;
+	printf("%f\n",runtime);
 	matprint(C,r1,c2,argv[2]);
 	return 0;
 }
