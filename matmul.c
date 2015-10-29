@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "matlib.h"
 
 int** A;
@@ -11,6 +12,11 @@ int r1,c1,r2,c2;
 
 int main(int argc,char **argv)
 {
+	if(argc!=3)
+	{
+		printf("Usage : No of threads , output file.\n");
+		return 0;
+	}
 	A = matread("mat1.dat");
 	B = matread("mat2.dat");
 	B = mattra(B,r2,c2);
@@ -46,7 +52,15 @@ int main(int argc,char **argv)
 	void* (*fun)(void*);
 	fun = &matpro;
 
+	long str,end;
+	struct timespec st,en;
+	double runtime;
+	int *ret;
 	int j,k;
+	runtime=0;
+
+	// CLOCK_THREAD_CPUTIME_ID CLOCK_REALTIME
+	clock_gettime(CLOCK_MONOTONIC,&st);
 	for(i=0;i<thrcnt;i++)
 	{
 		Args *args = (Args*)malloc(sizeof(Args));
@@ -59,9 +73,13 @@ int main(int argc,char **argv)
 		args->ce=c2;
 
 		pthread_create((tid+i),NULL,fun,(void*)args);
-		pthread_join(tid[i],NULL);
 	}
+	for(i=0;i<thrcnt;i++)
+		pthread_join(tid[i],(void**)&ret);
+	clock_gettime(CLOCK_MONOTONIC,&en);
 
+	runtime = (en.tv_nsec-st.tv_nsec)/1000;
+	printf("time for %d threads : %f\n",thrcnt,runtime);
 	matprint(C,r1,c2,argv[2]);
 	return 0;
 }

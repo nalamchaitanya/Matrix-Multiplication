@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "matlib.h"
 
 int** matread(char *file)
@@ -64,7 +65,7 @@ void* matpro(void *arg)
 {
 	Args *args=(Args*)arg;
 	// print(args);
-	printf("Hi\n");
+	// printf("Hi\n");
 	int i,j,k;
 	for(i=args->rs;i<args->re;i++)
 		for(j=args->cs;j<args->ce;j++)
@@ -72,7 +73,7 @@ void* matpro(void *arg)
 			{
 				C[i][j]+=A[i][k]*B[k][j];
 			}
-	return 0;
+	pthread_exit((void*)2);
 }
 
 void print(Args *args)
